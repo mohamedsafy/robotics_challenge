@@ -29,7 +29,7 @@ Part 1 : Installing Ubuntu
     
     7- continue with the installation normally with the default configurations.
     
-Part 2: Install ROS
+Part 2: Install ROS + gazebo
   
   I've compiled all the nessasary steps into one simple script, all you have to do is copy it to your virtual machine and run it as such:
   
@@ -37,12 +37,16 @@ Part 2: Install ROS
   
   2-Paste the following by pressing (Ctrl+Shift+V)
   
+   git clone https://github.com/mohamedsafy/robotics_challenge.git && sudo bash ./robotics_challenge/script.sh
+
   and hit Enter.
 
-Part 3: Install gazebo
+Part 3: Test
   
   Same as the previous step but paste this :
   
+  export TURTLEBOT3_MODEL=waffle_pi
+  roslaunch turtlebot3_gazebo turtlebot3_house.launch
   
 Your workspace is now ready for simulation.
 
