@@ -1,6 +1,6 @@
 # robotics_challenge
 
-##This repo will be public untill all participance have made a github account, then they will be added as a contributors to the repo.##
+##This repo will be public untill all participance make a github account, then they will be added as a contributors to the repo.##
 
 ##Setting up the Working space##
 Ubuntu 20.04 + ROS Noetic + gazebo will be used and you will be guided on how to setup all that.
