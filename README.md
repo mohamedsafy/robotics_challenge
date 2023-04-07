@@ -45,7 +45,8 @@ Part 3: Test
   
   Same as the previous step but paste this :
   
-  export TURTLEBOT3_MODEL=waffle_pi
+  export TURTLEBOT3_MODEL=waffle_pi 
+  
   roslaunch turtlebot3_gazebo turtlebot3_house.launch
   
 Your workspace is now ready for simulation.
