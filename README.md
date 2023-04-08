@@ -37,9 +37,13 @@ Part 2: Install ROS + gazebo
   
   2-Paste the following by pressing (Ctrl+Shift+V)
   
-   git clone https://github.com/mohamedsafy/robotics_challenge.git && sudo bash ./robotics_challenge/script.sh
-
+   git clone https://github.com/mohamedsafy/robotics_challenge.git
+   
   and hit Enter.
+  
+  Then move the script.sh to your home directory.
+  
+  run the script.
 
 Part 3: Test
   
