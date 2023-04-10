@@ -50,3 +50,21 @@ export TURTLEBOT3_MODEL=waffle_pi
 roslaunch turtlebot3_gazebo turtlebot3_house.launch
 ```
 If you don't see gazebo openning, please contact me.
+
+##Start writing code!
+Copy robotics_challenge sub folder to /catkin_ws/src/
+Changing the code inside .py files doesn't require compile but if you add new files you have to run
+```
+cd ~/catkin_ws/ && catkin_make
+```
+```
+Launch our simulation by running:
+roslaunch robotics_challenge start.launch
+```
+
+## Files Structure
+```
+We have three main nodes connected with eachother using combination of topics and actions.
+The code template is written in a way that allows each group to work and test their code individually from other groups. 
+Many of the functions is made as a mockup, code should be replaced with every group implemention.
+```
