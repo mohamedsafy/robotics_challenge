@@ -6,17 +6,13 @@
 ## Installation of Important Tools
 
 Tools used :
+```
     Ubuntu 20.04, 
     VMware player 17,
     Gazebo Classic,
     ROS 1 Noetic,
     Turtlebot3 Toolbox
-
-```bash
-  npm install my-project
-  cd my-project
 ```
-### Virtual Machine Setup
 
 1- Download VMware Workstation17 
 ```
