@@ -29,7 +29,14 @@ Part 1 : Installing Ubuntu
     
     7- continue with the installation normally with the default configurations.
     
-    *PLEASE DO NOT CARRY ON WITH THE REST OF THE INSTRUCTIONS. UPDATES WILL BE MADE SOON*
+    
+    
+    
+    
+*PLEASE DO NOT CARRY ON WITH THE REST OF THE INSTRUCTIONS. UPDATES WILL BE MADE SOON*
+    
+    
+    
     
     
 Part 2: Install ROS + gazebo
