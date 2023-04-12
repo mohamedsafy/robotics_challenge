@@ -31,4 +31,5 @@
   </include>
   
   <node name="detect_ball" pkg="robotics_challenge" type="detect_ball.py" output="screen"/>
+  <node name="decision_making" pkg="robotics_challenge" type="decision_making.py" output="screen"/>
 </launch>

@@ -29,7 +29,7 @@ class Decision_maker:
 			
 def main():
 	maker= Decision_maker()
-	
+	print('HEYYYYYYYY IM HEEEEEREEEEEE I EXISTTTTTTTTT !!!!!!!!!! HEYYYYYYYYY')
 	rospy.spin()
 
 if __name__ == "__main__":
