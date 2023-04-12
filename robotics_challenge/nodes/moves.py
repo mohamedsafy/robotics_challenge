@@ -3,4 +3,3 @@
 #Implement movement manager: responsible for translating descisions to movements
 #interact with navigation and moveit packages
 
-#This is a test to try push git command
