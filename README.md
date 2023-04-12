@@ -68,3 +68,8 @@ We have three main nodes connected with eachother using combination of topics an
 The code template is written in a way that allows each group to work and test their code individually from other groups. 
 Many of the functions is made as a mockup, code should be replaced with every group implemention.
 ```
+
+## Important & Frequently used commands
+```
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+```
