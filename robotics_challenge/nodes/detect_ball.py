@@ -67,7 +67,7 @@ def watch_new_balls(detector, cManager):
 			
 			cManager.send_snapshot()
 			cManager.balls_location = detector.poses #Refer to General remarks point 1
-			detector.poses =[]
+			detector.clear_balls()
 			
 	
 	rospy.sleep(1)
