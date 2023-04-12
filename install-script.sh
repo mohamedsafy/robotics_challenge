@@ -25,3 +25,4 @@ source ~/catkin_ws/devel/setup.bash
 cd ~/catkin_ws/src/
 git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
 cd ~/catkin_ws && catkin_make
+echo 'Installation finished!'
