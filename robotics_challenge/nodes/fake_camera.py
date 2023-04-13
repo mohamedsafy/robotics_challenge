@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-
-#this is a test line
 import rospy
 from std_msgs.msg import String
 

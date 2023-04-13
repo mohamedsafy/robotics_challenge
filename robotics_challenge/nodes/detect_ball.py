@@ -9,7 +9,7 @@
 
 import rospy
 from geometry_msgs.msg import Pose, Point
-from std_msgs.msg import String
+from sensor_msgs.msg import Image
 from robotics_challenge.msg import SnapshotBallsLocation
 
 class BallsDetector:
@@ -20,6 +20,12 @@ class BallsDetector:
 
 	def does_frame_have_ball(self, stream):
 		#TODO: Implement a function that is capable of taking bunch of images and finding balls in them, once the function finds a ball, it will be appended to the poses list
+		
+		#print('Image recieved!!!!')
+		
+		
+		
+		
 		self.poses =[Pose(position = Point(x=1, y=1, z=0)),
 		Pose(position = Point(x=1, y=1, z=0)),
 		Pose(position = Point(x=1, y=1, z=0))]
@@ -35,8 +41,8 @@ class ConnectionManager:
 
 		#Connections
 		self.pub = rospy.Publisher('balls/location', SnapshotBallsLocation, queue_size=3)
-		#TODO: Implement the correct camera topic, (Setup camera)
-		self.sub_camera = rospy.Subscriber("fake_camera", String, camera_callback)
+		#TODO: Not sure if that implementation of taking camera readings is sutable for this application, hence I left it marked unfinished
+		self.sub_camera = rospy.Subscriber("camera/rgb/image_raw", Image, camera_callback)
 
 	def send_snapshot(self):
 
@@ -49,7 +55,7 @@ def startup_routiune(detector, cManager):
 
 	#TODO: Make robot spin 360 (requires connection with movement manager)		
 
-	is_the_node_done_sending = input("Did you start the fake camera node?")
+	is_robot_finished_spinning = input("Did the node finish spinning?")
 
 	cManager.balls_location = detector.poses #Refer to General remarks point 1
 	
@@ -57,6 +63,8 @@ def startup_routiune(detector, cManager):
 	cManager.send_snapshot()
 	detector.clear_balls()	
 	cManager.balls_location = detector.poses #Refer to General remarks point 1
+	
+	print('Sending initial balls location is done, decision_making can carry on')
 
 def watch_new_balls(detector, cManager):
 	print('Looking for new balls')
@@ -67,7 +75,7 @@ def watch_new_balls(detector, cManager):
 			
 			cManager.send_snapshot()
 			cManager.balls_location = detector.poses #Refer to General remarks point 1
-			detector.clear_balls()
+			detector.poses =[]
 			
 	
 	rospy.sleep(1)
@@ -83,7 +91,7 @@ def main():
 	startup_routiune(detector, cManager)
 	
 	#Detect rest of balls after initial balls are detected
-	watch_new_balls(detector, cManager)
+	#watch_new_balls(detector, cManager)
 	
 	
 if __name__ == "__main__":
