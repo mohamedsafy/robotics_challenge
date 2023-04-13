@@ -76,6 +76,11 @@ def watch_new_balls(detector, cManager):
 			cManager.send_snapshot()
 			cManager.balls_location = detector.poses #Refer to General remarks point 1
 			detector.poses =[]
+	#Initalize objects
+	detector = BallsDetector()
+	cManager = ConnectionManager(detector.poses, detector.does_frame_have_ball)
+
+	#Call startup_rountiune
 			
 	
 	rospy.sleep(1)
