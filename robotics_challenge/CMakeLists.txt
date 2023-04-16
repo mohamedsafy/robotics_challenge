@@ -12,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
 	std_msgs
 	message_generation
 	geometry_msgs
+	move_base_msgs
+	actionlib_msgs
 
 )
 
@@ -53,6 +55,7 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    SnapshotBallsLocation.msg
    SnapshotBallsOrder.msg
+   Ball.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -74,6 +77,8 @@ find_package(catkin REQUIRED COMPONENTS
    DEPENDENCIES
    std_msgs  # Or other packages containing msgs
    geometry_msgs
+   actionlib_msgs
+   move_base_msgs
  )
 
 ################################################
