@@ -103,35 +103,35 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <state world_name='default'>
-      <sim_time>212 497000000</sim_time>
-      <real_time>65 90664872</real_time>
-      <wall_time>1681135731 190816727</wall_time>
-      <iterations>36131</iterations>
-      <model name='ball'>
-        <pose>-1.12782 0.539084 -0.012255 0 -0 0</pose>
+      <sim_time>530 885000000</sim_time>
+      <real_time>110 23984046</real_time>
+      <wall_time>1681837762 527711943</wall_time>
+      <iterations>104181</iterations>
+      <model name='ball_white'>
+        <pose>-1.5 0.7 -0.039755 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link_1'>
-          <pose>-1.12782 0.539084 0.055 0 -0 0</pose>
+          <pose>-1.5 0.7 0.0275 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='ball_0'>
-        <pose>-0.377021 0.028146 -0.012255 0 -0 0</pose>
+      <model name='ball_white_0'>
+        <pose>-1.5 0 -0.039755 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link_1'>
-          <pose>-0.377021 0.028146 0.055 0 -0 0</pose>
+          <pose>-1.5 0 0.0275 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='ball_1'>
-        <pose>-1.12061 -0.556131 -0.012255 0 -0 0</pose>
+      <model name='ball_white_1'>
+        <pose>-1.5 -0.7 -0.039755 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link_1'>
-          <pose>-1.12061 -0.556131 0.055 0 -0 0</pose>
+          <pose>-1.5 -0.7 0.0275 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -181,7 +181,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>0.017399 -3.87688 5.68452 0 0.96904 1.57201</pose>
+        <pose>-0.351439 -4.85745 4.93069 -0 0.781041 1.54801</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -370,7 +370,7 @@
       </link>
       <static>1</static>
     </model>
-    <model name='ball_0'>
+    <model name='ball_white'>
       <link name='link_1'>
         <inertial>
           <mass>0.005</mass>
@@ -393,7 +393,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <sphere>
-              <radius>0.055</radius>
+              <radius>0.0275</radius>
             </sphere>
           </geometry>
           <material>
@@ -419,7 +419,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <sphere>
-              <radius>0.055</radius>
+              <radius>0.0275</radius>
             </sphere>
           </geometry>
           <surface>
@@ -471,9 +471,9 @@
       </link>
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>-0.377021 0.028146 0 0 -0 0</pose>
+      <pose>-1.37244 0.64892 0 0 -0 0</pose>
     </model>
-    <model name='ball'>
+    <model name='ball_white_0'>
       <link name='link_1'>
         <inertial>
           <mass>0.005</mass>
@@ -496,7 +496,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <sphere>
-              <radius>0.055</radius>
+              <radius>0.0275</radius>
             </sphere>
           </geometry>
           <material>
@@ -522,7 +522,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <sphere>
-              <radius>0.055</radius>
+              <radius>0.0275</radius>
             </sphere>
           </geometry>
           <surface>
@@ -574,9 +574,9 @@
       </link>
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>-1.12782 0.539084 0 0 -0 0</pose>
+      <pose>-1.3675 -0.100158 0 0 -0 0</pose>
     </model>
-    <model name='ball_1'>
+    <model name='ball_white_1'>
       <link name='link_1'>
         <inertial>
           <mass>0.005</mass>
@@ -599,7 +599,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <sphere>
-              <radius>0.055</radius>
+              <radius>0.0275</radius>
             </sphere>
           </geometry>
           <material>
@@ -625,7 +625,7 @@
           <pose>0 0 0 0 -0 0</pose>
           <geometry>
             <sphere>
-              <radius>0.055</radius>
+              <radius>0.0275</radius>
             </sphere>
           </geometry>
           <surface>
@@ -677,7 +677,7 @@
       </link>
       <static>0</static>
       <allow_auto_disable>1</allow_auto_disable>
-      <pose>-1.12061 -0.556131 0 0 -0 0</pose>
+      <pose>-1.32505 -1.03873 0 0 -0 0</pose>
     </model>
   </world>
 </sdf>
