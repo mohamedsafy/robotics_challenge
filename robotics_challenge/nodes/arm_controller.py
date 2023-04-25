@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+import rospy
+import moveit_commander
+import moveit_msgs.msg
+
+OPEN = 0.9
+CLOSE = 0
+
+class ArmController:
+    
+    def __init__(self):
+        moveit_commander.roscpp_initialize([])
+        self.arm = moveit_commander.MoveGroupCommander("arm")
+        self.robot = moveit_commander.RobotCommander('robot_description')
+        self.gripper = self.robot.get_joint('gripper')
+
+    def set_pos(self, position):
+        self.arm.set_position_target(position)
+        self.arm.go(wait=True)
+    def set_pos_name(self, name):
+        self.arm.set_named_target(name)
+        self.arm.go(wait=True)
+    def open_gripper(self):
+        self.gripper.move(self.gripper.max_bound() * OPEN, True)
+
+    def close_gripper(self):
+        self.gripper.move(self.gripper.max_bound() * CLOSE, True)
+
+    def pick_ball(self, position):
+        position_above_ball = [position[0], position[1], position[2] + 0.1]
+        self.set_pos(position_above_ball)
+        self.open_gripper()
+        position_below_ball = [position[0] - 0.005, position[1], position[2]]
+        self.set_pos(position_below_ball)
+        #position_below_ball = [position[0] - 0.01, position[1], position[2]]
+        #self.set_pos(position_below_ball)
+        self.close_gripper()
+        self.set_pos_name('home')
+    def place_ball(self, position):
+        self.set_pos(position)
+        self.open_gripper()
+        self.set_pos_name('home')
