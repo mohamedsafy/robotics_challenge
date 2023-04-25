@@ -1,5 +1,5 @@
 <launch> 
-   
+
   <include file="$(find robotics_challenge)/launch/turtlebot3_manipulation_gazebo.launch">
   
   </include>
@@ -15,7 +15,8 @@
   <include file="$(find turtlebot3_manipulation_moveit_config)/launch/move_group.launch">
   
   </include>
-    <include file="$(find robotics_challenge)/launch/hough_circles.launch">
+
+  <!--<include file="$(find robotics_challenge)/launch/hough_circles.launch">
   
-  </include>
+  </include>-->
 </launch>
