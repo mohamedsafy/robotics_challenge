@@ -2,6 +2,7 @@
 import rospy
 import moveit_commander
 import moveit_msgs.msg
+from std_srvs.srv import Empty
 
 OPEN = 0.9
 CLOSE = 0
@@ -13,7 +14,10 @@ class ArmController:
         self.arm = moveit_commander.MoveGroupCommander("arm")
         self.robot = moveit_commander.RobotCommander('robot_description')
         self.gripper = self.robot.get_joint('gripper')
-
+    def handle_pickup(self, req):
+        self.pick_ball([0.2, 0, 0.029])
+    def handle_drop(self, req):
+        self.place_ball([0.21, 0, 0.0275])
     def set_pos(self, position):
         self.arm.set_position_target(position)
         self.arm.go(wait=True)
@@ -40,3 +44,13 @@ class ArmController:
         self.set_pos(position)
         self.open_gripper()
         self.set_pos_name('home')
+
+def main():
+    rospy.init_node('arm_manager')
+    arm = ArmController()
+    s = rospy.Service('ball_pickup', Empty, arm.handle_pickup)
+    s = rospy.Service('ball_drop', Empty, arm.handle_drop)
+    #arm.pick_ball([0.2, 0, 0.029])
+    rospy.spin()
+if __name__ =="__main__":
+    main()

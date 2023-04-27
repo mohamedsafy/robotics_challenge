@@ -27,7 +27,7 @@ tf_buffer = tf2_ros.Buffer()
 tf_listener = tf2_ros.TransformListener(tf_buffer)
 
 ball_pub = rospy.Publisher('/balls_location', PoseStamped, queue_size=1)
-#ball_pub = rospy.Publisher('/balls_location', Point, queue_size=1)
+ball_blob_pub = rospy.Publisher('/balls_location/blob', Point, queue_size=1)
 
 
 # Define the callback function to process the image data
@@ -38,27 +38,36 @@ def process_image(image_msg):
     # Convert the image to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+    lower_red = np.array([160,140,50])
+    upper_red = np.array([180,255,255])
+
+    
     # Apply a Gaussian blur to the grayscale image
-    gray = cv2.GaussianBlur(gray, (5, 5), 0)
+    gray = cv2.GaussianBlur(gray, (3, 3), 0)
+    #gray = cv2.medianBlur(gray,5)
 
     # Apply the Hough Circle algorithm
     circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1, 20, param1=30, param2=30, minRadius=0, maxRadius=0)
-
+    #circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 1.2,100)   
     # If circles are detected, draw them on the original image and return their coordinates
     if circles is not None:
         circles = np.round(circles[0, :]).astype("int")
         for (x, y, r) in circles:
             cv2.circle(img, (x, y), r, (0, 255, 0), 2)
             print("Ball detected at ({}, {}) with radius {}".format(x, y, r))
-            if x >= 300 and x <= 325:
-                print("Exact location : ", find_3d_point(x,y,r))
-                ball_pub.publish(find_3d_point(x,y,r))
-            #ball_pub.publish(Point(x,y,r))
+            #if x >= 300 and x <= 325:
+                #print("Exact location : ", find_3d_point(x,y,r))
+                #ball_pub.publish(find_3d_point(x,y,r))
+        circle = max(circles, key=lambda x: x[2])
+        print(circle)
+        ball_blob_pub.publish(Point(circle[0],circle[1],circle[2]))
     else:
+        ball_blob_pub.publish(Point(0,0,0))
         print("No balls detected.")
 
     # Display the resulting image
     cv2.imshow("Result", img)
+    cv2.imshow("Maks", gray)
     cv2.waitKey(1)
 def find_3d_point(px,py,ball_radius):
         #Preparing variables
