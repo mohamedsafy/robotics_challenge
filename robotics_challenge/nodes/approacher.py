@@ -8,6 +8,8 @@ from std_srvs.srv import Empty
 from nav_msgs.msg import Odometry
 from robotics_challenge.msg import Ball, SnapshotBalls
 
+ERROR_CODE = 1000
+
 class BallCollector():
     def __init__(self):
 
@@ -73,7 +75,7 @@ class Approacher():
         self.cmd_pub.publish(twist)
 
     def take_action(self):
-        if self.collector.target_ball is not None :
+        if self.collector.target_ball is not None and self.collector.target_ball.positionPixel.x != 0:
         
             ball_x = self.collector.target_ball.positionPixel.x
             ball_radius = self.collector.target_ball.positionPixel.z
@@ -81,7 +83,7 @@ class Approacher():
             print("moving to ball : {},{}".format(ball_x, ball_radius))
 
             correction_x = 320 - ball_x
-            if abs(correction_x) <= 5:
+            if -5 <= correction_x <= 5:
                 angular_vel = 0
             else:
                 angular_vel = correction_x/1000
@@ -96,7 +98,7 @@ class Approacher():
             print("Speed : {},{}".format(linear_vel, angular_vel))
             return (linear_vel, angular_vel)
         else:
-            return
+            return (ERROR_CODE,ERROR_CODE) 
     def start(self):
         stop_spinning = False
 
@@ -110,10 +112,11 @@ class Approacher():
                 if linear_vel == 0 and angular_vel ==0:
                     self.stop()
                     break
-                twist = Twist()
-                twist.angular.z = angular_vel
-                twist.linear.x = linear_vel
-                self.cmd_pub.publish(twist)
+                if linear_vel != ERROR_CODE and angular_vel == ERROR_CODE:
+                    twist = Twist()
+                    twist.angular.z = angular_vel
+                    twist.linear.x = linear_vel
+                    self.cmd_pub.publish(twist)
             else:
                 self.spin()
                 rospy.sleep(0.05)
