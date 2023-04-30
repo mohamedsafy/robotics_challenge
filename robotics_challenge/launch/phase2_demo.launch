@@ -9,14 +9,14 @@
   </include>
     <!-- Turtlebot3 SLAM -->
   <include file="$(find turtlebot3_manipulation_slam)/launch/slam.launch">
-	<arg name="open_rviz"    value="true" />
+	<arg name="open_rviz"    value="false" />
   </include>
   
   <include file="$(find turtlebot3_manipulation_moveit_config)/launch/move_group.launch">
   
   </include>
-  <node name="detector" type="detector.py" pkg="robotics_challenge"/>
-  <node name="arm_controller" type="arm_controller.py" pkg="robotics_challenge" output= "screen"/>
+  <!--<node name="detector" type="detector.py" pkg="robotics_challenge"/>
+  <node name="arm_manager" type="arm_manager.py" pkg="robotics_challenge" output= "screen"/>-->
 
   <!--<include file="$(find robotics_challenge)/launch/hough_circles.launch">
   

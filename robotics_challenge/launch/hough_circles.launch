@@ -9,10 +9,10 @@
 
   <arg name="canny_threshold" default="64" doc="Upper threshold for the internal Canny edge detector." />
   <arg name="accumulator_threshold" default="50" doc="Threshold for center detection." />
-  <arg name="gaussian_blur_size" default="9" doc="The size of gaussian blur (should be odd number)" />
-  <arg name="gaussian_sigma_x" default="0" doc="Sigma x of gaussian kernel" />
-  <arg name="gaussian_sigma_y" default="0" doc="Sigma y of gaussian kernel" />
-  <arg name="dp" default="2" doc="The inverse ratio of resolution." />
+  <arg name="gaussian_blur_size" default="0" doc="The size of gaussian blur (should be odd number)" />
+  <arg name="gaussian_sigma_x" default="5" doc="Sigma x of gaussian kernel" />
+  <arg name="gaussian_sigma_y" default="5" doc="Sigma y of gaussian kernel" />
+  <arg name="dp" default="1" doc="The inverse ratio of resolution." />
   <arg name="min_circle_radius" default="0" doc="The minimum size of the circle, If unknown, put zero as default" />
   <arg name="max_circle_radius" default="0" doc="The maximum size of the circle, If unknown, put zero as default." />
 

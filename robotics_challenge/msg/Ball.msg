@@ -1,2 +1,2 @@
-std_msgs/Int32 Id
-geometry_msgs/Pose position
+geometry_msgs/Point position3d
+geometry_msgs/Point positionPixel

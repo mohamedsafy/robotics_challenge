@@ -51,6 +51,7 @@ def main():
     s = rospy.Service('ball_pickup', Empty, arm.handle_pickup)
     s = rospy.Service('ball_drop', Empty, arm.handle_drop)
     #arm.pick_ball([0.2, 0, 0.029])
+    #arm.set_pos([0.2, 0, 0.029])
     rospy.spin()
 if __name__ =="__main__":
     main()
