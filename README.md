@@ -13,6 +13,21 @@ Tools used :
     ROS 1 Noetic,
     Turtlebot3 Toolbox
 ```
+Packages used:
+```
+    Turtlebot3 github repo : https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+    $ sudo apt install ros-noetic-dynamixel-sdk
+    $ sudo apt install ros-noetic-turtlebot3-msgs
+    $ sudo apt install ros-noetic-turtlebot3
+    sudo apt-get install ros-noetic-joy ros-noetic-teleop-twist-joy \
+    ros-noetic-teleop-twist-keyboard ros-noetic-laser-proc \
+    ros-noetic-rgbd-launch ros-noetic-rosserial-arduino \
+    ros-noetic-rosserial-python ros-noetic-rosserial-client \
+    ros-noetic-rosserial-msgs ros-noetic-amcl ros-noetic-map-server \
+    ros-noetic-move-base ros-noetic-urdf ros-noetic-xacro \
+    ros-noetic-compressed-image-transport ros-noetic-rqt* ros-noetic-rviz \
+    ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers
+```
 
 1- Download VMware Workstation17 
 ```
@@ -59,10 +74,10 @@ cd ~/catkin_ws/ && catkin_make
 ```
 ```
 Launch our simulation by running:
-roslaunch robotics_challenge start.launch
+roslaunch robotics_challenge phase2_demo.launch (phase 2 code)
 ```
 
-## Files Structure
+## Files Structure (Discontinued)
 ```
 We have three main nodes connected with eachother using combination of topics and actions.
 The code template is written in a way that allows each group to work and test their code individually from other groups. 
