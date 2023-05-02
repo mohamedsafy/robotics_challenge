@@ -50,6 +50,7 @@ class BallDetector:
     def process_image(self, image_msg):
         # Convert the ROS image message to a numpy array
         img = self.bridge.imgmsg_to_cv2(image_msg, "bgr8")
+        #self.alternate_ball(img)
         self.detect_ball(img)
         self.detect_close_ball(img)
         
@@ -127,7 +128,21 @@ class BallDetector:
                 return output_pose_stamped.pose.position
             except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
                 print('Failed !')
+    def alternate_ball(self, img):
+        hsv_frame = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        hsv_frame = cv2.resize(hsv_frame,(640,300))
+        img = cv2.resize(img,(640,300))
 
+        low_H=25
+        low_S=100
+        low_V=10
+        high_H=32
+        high_S=255
+        high_V=255
+
+        mask_frame=cv2.inRange(hsv_frame, (low_H, low_S, low_V), (high_H, high_S, high_V))
+        cv2.imshow("mask",mask_frame)
+        cv2.waitKey(1)
 
 def main():
     # Initialize the ROS node
