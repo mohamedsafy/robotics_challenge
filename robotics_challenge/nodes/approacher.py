@@ -107,12 +107,12 @@ class Approacher():
             if self.collector.target_ball is not None and self.collector.target_ball.positionPixel.x != 0:
                 self.stop()
                 linear_vel, angular_vel = self.take_action()
-                linear_vel = min(0.2, linear_vel)
+                linear_vel = min(0.1, linear_vel)
                 #angular_vel = max(0.2, min(angular_vel, 0.5))
                 if linear_vel == 0 and angular_vel ==0:
                     self.stop()
                     break
-                if linear_vel != ERROR_CODE and angular_vel == ERROR_CODE:
+                if linear_vel != ERROR_CODE and angular_vel != ERROR_CODE:
                     twist = Twist()
                     twist.angular.z = angular_vel
                     twist.linear.x = linear_vel

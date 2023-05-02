@@ -41,9 +41,10 @@ class ArmController:
         self.close_gripper()
         self.set_pos_name('home')
     def place_ball(self, position):
-        self.set_pos(position)
+        #self.set_pos(position)
+        self.set_pos([0.25,0,0.2])
         self.open_gripper()
-        self.set_pos_name('home')
+        #self.set_pos_name('home')
 
 def main():
     rospy.init_node('arm_manager')

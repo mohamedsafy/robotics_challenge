@@ -9,7 +9,7 @@
   </include>
     <!-- Turtlebot3 SLAM -->
   <include file="$(find turtlebot3_manipulation_slam)/launch/slam.launch">
-	<arg name="open_rviz"    value="false" />
+	<arg name="open_rviz"    value="true"/>
   </include>
   
   <include file="$(find turtlebot3_manipulation_moveit_config)/launch/move_group.launch">
