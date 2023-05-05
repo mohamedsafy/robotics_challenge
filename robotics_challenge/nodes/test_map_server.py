@@ -16,14 +16,15 @@ def callback(map):
     #y = (index / map.info.width) * map.info.resolution + -10
     #print(x,y)
     x1,y1 = -1,-1
-    x2,y2 = -1,-5
+    x2,y2 = -1,-0.5
     index1 = int((y1) / map.info.resolution * map.info.width + (x1) / map.info.resolution)
     index2 = int((y2) / map.info.resolution * map.info.width + (x2) / map.info.resolution)
-
-    print('updating')
-
-    listed[0] = 100
-
+    for x in range(-1, -1):
+        for y in range(-1, -0.5):
+            # Get the index of the cell at (x, y)
+            index = int((y- -10) / map.info.resolution * map.info.width + (x- -10) / map.info.resolution)
+            # Set the value of the cell to 100
+            listed[index] = 100
 
     map.data = tuple(listed)
     pub = rospy.Publisher('/modified_map', OccupancyGrid, queue_size=1)
