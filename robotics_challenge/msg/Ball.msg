@@ -1,2 +1,3 @@
 geometry_msgs/Point position3d
 geometry_msgs/Point positionPixel
+geometry_msgs/Point close_ball

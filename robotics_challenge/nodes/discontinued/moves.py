@@ -14,7 +14,7 @@ from robotics_challenge.msg import Ball
 from geometry_msgs.msg import Pose, Point, PolygonStamped, Point32, Twist
 from image_geometry import PinholeCameraModel
 from sensor_msgs.msg import Image, CameraInfo
-#from costmap_converter.msg import ObstacleArrayMsg, ObstacleMsg
+from costmap_converter.msg import ObstacleArrayMsg, ObstacleMsg
 #from opencv_apps.msg import Circle, CircleArrayStamped
 from nav_msgs.msg import Odometry
 from actionlib_msgs.msg import GoalStatus
@@ -23,15 +23,16 @@ from move_base_msgs.msg import MoveBaseFeedback, MoveBaseGoal, MoveBaseAction
 OPEN = 0.9
 CLOSE = 0
 BALL_SIZE = 0.0275
+MAP_UNIT_MODIFIER = 1
 		
 
 class BallsCollector:
 	def __init__(self):
-		self.sub = rospy.Subscriber('/balls_location', Point, self.add_ball)
+		self.sub = rospy.Subscriber('/balls_location', Ball, self.add_ball)
 		self.balls = []
-	def add_ball(self, position):
-		print(position)
-		self.balls.append(Pose(position = position))
+	def add_ball(self, ball):
+		print(ball)
+		self.balls.append(ball)
 
 class ArmController:
 	
@@ -81,7 +82,7 @@ class MovementManager:
 		self.cmd_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
 		
 		self.odom_sub = rospy.Subscriber('/odom', Odometry, self.callback)
-		self.robot_pos = Pose()
+		self.robot_pos = rospy.wait_for_message('/odom', Odometry)
 		self.arm_controller = ArmController()
 	def callback(self, msg):
 		self.robot_pos = msg.pose.pose
@@ -95,23 +96,36 @@ class MovementManager:
 		
 		self.move_base.send_goal(goal, self.goal_status)
 		
-	def pickup_routine(self,pose):
-		pose.position.x +=0.2
-		pose.position.z =0
-		pose.orientation.w=0
-		pose.orientation.z=1
+	def pickup_routine(self,ball):
+
+		pose = Pose()
+		#pose.position = self.robot_pos.position
+		pose.position.x = ball.position3d.x + 0.2
+		pose.position.y = ball.position3d.y
+		w,z = self.cal_orientate(ball.position3d.x, ball.position3d.y)
+
+		#self.spin_to_target(w,z)
+
+		pose.orientation.w = 0
+		pose.orientation.z = 1
+		
 		self.move_to_target(pose)
 		while not self.finished:
-			print('still moving!')
+			#print('still moving!')
+			continue
 		self.finished= False
 		#rospy.sleep(1)
 		#self.appr.turn_towards_ball()
 		rospy.sleep(1)
 		self.arm_controller.pick_ball([0.25, 0, 0.029])
-	def delivery_routine(self, pose):
-		pose.position.x = 0.0
+		
+	def delivery_routine(self, ball):
+		pose = Pose()
+		pose.position.x = 0
+		pose.position.y = ball.position3d.y
+		#pose.position.z = 0
+		pose.orientation.w =1
 		pose.orientation.z=0
-		pose.orientation.w=1
 		self.move_to_target(pose)
 		self.finished =False
 		while not self.finished:
@@ -123,11 +137,43 @@ class MovementManager:
 		twist = Twist()
 		twist.angular.z = speed
 		self.cmd_pub.publish(twist)
+
+	def spin_to_target(self, w, z):
+		robot_w = abs(self.robot_pos.orientation.w)
+		robot_z = abs(self.robot_pos.orientation.z)
+		w = abs(w)
+		z = abs(z)
+
+		while not ( w -0.01 <= self.robot_pos.orientation.w <= w + 0.01 ) :
+			self.spin(0.2)
+		self.spin(0)
 		
 	def goal_status(self, status, result):
 
 		self.finished = True
-	'''
+	
+	def cal_orientate(self,x,y):
+		xo,yo = self.robot_pos.position.x, self.robot_pos.position.y
+		print('robot current position : ',xo,yo)
+		s= (y-yo)/(x-xo)
+
+		theta = math.atan(s)
+		print(theta)
+
+		if(theta < 0):
+			theta = theta +math.pi
+		elif theta == 0:
+			if x < xo:
+				theta = theta + math.pi
+
+		if(y - yo < 0):
+			theta = theta + math.pi
+			
+		w = math.cos(theta/2)
+		z = math.sin(theta/2)
+		print(w,z)
+		return w,z
+	
 	def create_obstacle_msg(self,x, y, radius):
 		obstacle = ObstacleMsg()
 		obstacle.polygon.points = [Point32(x=x+radius, y=y)]
@@ -141,11 +187,11 @@ class MovementManager:
 		pub = rospy.Publisher('/obstacle_array', ObstacleArrayMsg, queue_size=10)
 		obstacles = ObstacleArrayMsg()
 		for ball in balls:
-			obstacle = self.create_obstacle_msg(ball[0],ball[1],ball[2])
+			obstacle = self.create_obstacle_msg(ball.position3d.x,ball.position3d.y,0.0275)
 			obstacles.obstacles.append(obstacle)
 		rospy.sleep(1)
 		pub.publish(obstacles)
-	'''
+	
 
 def main():
 
@@ -153,18 +199,21 @@ def main():
 
 	mManager = MovementManager()
 	bCollector = BallsCollector()
-
-	while len(bCollector.balls) < 3 :
+	#balls = [Pose(position=Point(x=3.7,y = 0 ,z= 0))]
+	
+	while len(bCollector.balls) < 1 :
 		print(len(bCollector.balls))
-		mManager.spin(0.4)
+		mManager.spin(0.2)
 	mManager.spin(0)
+	
+	for ball in bCollector.balls:
+		mManager.set_obstacle(bCollector.balls)
 
 	for ball in bCollector.balls :
+	#ball = Ball(position3d = Point(-0.326296,-1.113660,0))
 		mManager.pickup_routine(ball)
 		rospy.sleep(1)
 		mManager.delivery_routine(ball)
-
-	rospy.spin()
 
 if __name__=='__main__':
 	main()
